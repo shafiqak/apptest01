@@ -9,42 +9,108 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>Prayer Times</title>
-<script>try{var c=JSON.parse(localStorage.getItem('cfg')||'null'),t=(c&&c.theme)||'dark';if(t==='auto')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='dark'}</script>
-<link rel="stylesheet" href="app.css">
-</head><body>
-
+<style>
+:root{--bg:#06140f;--card:#0d2a20;--line:#1f4d3b;--gold:#e3c26a;--fg:#f2efe4;--dim:#8fb5a3}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#06140f;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center;color:var(--fg);font-family:"Noto Naskh Arabic","Noto Sans Arabic","DejaVu Sans",system-ui,sans-serif}
+#stage{width:54rem;height:96rem;background:var(--bg);padding:2.5rem;display:grid;grid-template-columns:29rem 1fr;gap:2rem}
+.col{display:flex;flex-direction:column;gap:2rem;min-height:0}
+.card{background:var(--card);border:.15rem solid var(--line);border-radius:1.6rem;padding:1.6rem}
+#clock{text-align:center;padding:1.4rem 1rem}
+#time{font-size:8.2rem;font-weight:700;line-height:1;letter-spacing:-.2rem;font-variant-numeric:tabular-nums}
+#trow{display:flex;justify-content:center;align-items:center;gap:.8rem}
+#sub{display:flex;flex-direction:column;align-items:flex-start;font-size:2.6rem;line-height:1.15;color:var(--dim);font-variant-numeric:tabular-nums}
+#moon{display:flex;justify-content:center;margin-top:.6rem;align-items:center;gap:.7rem;text-align:left;font-size:1.3rem;color:var(--dim);line-height:1.3}
+#moon svg{width:4.4rem;height:4.4rem;flex:none}
+#sub b{color:var(--gold);font-weight:600}
+#hdate{margin-top:1.2rem;font-size:3.4rem;color:var(--gold);line-height:1.3}
+#hdate small{display:block;font-size:2rem;color:var(--fg)}
+#gdate{font-size:1.9rem;color:var(--dim);margin-top:.4rem}
+#cal{flex:1;min-height:0;display:flex;flex-direction:column}
+#chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+#chead .mid{flex:1;text-align:center}
+.nav{display:none;font:inherit;font-size:3rem;line-height:1;background:rgba(255,255,255,.08);color:var(--gold);border:0;border-radius:1rem;width:4.6rem;height:4.6rem;cursor:pointer}
+@media (pointer:coarse){.nav{display:block}}
+.tod{color:var(--gold);text-decoration:underline;cursor:pointer}
+#chead .ar{font-size:3.4rem;color:var(--gold);line-height:1.2}
+#chead .en{font-size:1.5rem;color:var(--dim)}
+#grid{flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;align-content:center}
+.dn{text-align:center;font-size:1.1rem;color:var(--dim);padding-bottom:.4rem}
+.d{height:3.3rem;border-radius:.8rem;text-align:center;padding-top:.1rem;background:rgba(255,255,255,.03)}
+.d .h{font-size:1.8rem;font-weight:600;line-height:1.15}
+.d .g{font-size:.95rem;color:var(--dim);line-height:1.1}
+.d.today{background:var(--gold);color:#12201a}.d.today .g{color:#12201a}
+.d.fri .h{color:var(--gold)}.d.today.fri .h{color:#12201a}
+#wx{display:flex;flex-direction:column;justify-content:center;height:12rem;gap:.3rem}
+#wx .city{font-size:1.6rem;color:var(--dim)}
+#wx{cursor:pointer}
+#wx .t{font-size:5.2rem;font-weight:700;line-height:1}
+#wx .c{font-size:2rem}
+#pr{display:flex;flex-direction:column;gap:1.4rem}
+.p{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:1.2rem 1.3rem}
+.p .ar{font-size:3rem;line-height:1.2;color:var(--gold)}
+.p .en{font-size:1.4rem;color:var(--dim);letter-spacing:.1rem;margin-bottom:.7rem}
+.p .r{display:flex;justify-content:space-between;align-items:baseline;width:100%}
+.p .r span{font-size:1.2rem;color:var(--dim);letter-spacing:.1rem}
+.p .r b{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.p .r b{font-size:3.1rem}
+.p .az b{color:var(--fg)}
+.p .nm{margin-top:.2rem}.p .nm b{color:var(--gold)}
+.p .r b small{font-size:1.1rem;font-weight:500;margin-left:.25rem;color:var(--dim)}
+.p.done{opacity:.45}
+.p.next{background:var(--gold);border-color:var(--gold);color:#12201a}
+.p.next .ar,.p.next .en,.p.next .r span,.p.next .r b,.p.next .r b small{color:#12201a}
+#eid{display:none;margin-top:1rem;background:var(--gold);color:#12201a;border-radius:1rem;font-size:1.7rem;font-weight:700;padding:.5rem .6rem}
+#sheet{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;z-index:9;overflow:auto}
+#sheet.on{display:block}
+#box{width:54rem;max-width:100%;margin:0 auto;background:var(--card);min-height:100%;padding:2.5rem;font-size:2rem}
+#box h2{font-size:3rem;color:var(--gold);margin-bottom:1rem}
+#box label{display:block;margin:2.2rem 0 .6rem;color:var(--dim);font-size:1.7rem;line-height:1.35}
+#box small{display:block;color:var(--dim);font-size:1.5rem;margin-bottom:.3rem}
+#box input,#box select{width:100%;font:inherit;font-size:2.1rem;padding:1rem;border-radius:1rem;border:.15rem solid var(--line);background:var(--bg);color:var(--fg)}
+#box button{font:inherit;font-size:2rem;padding:1rem 1.6rem;border-radius:1rem;border:0;background:var(--gold);color:#12201a;font-weight:700;margin-top:1rem}
+#box .srow{display:flex;gap:1rem}#box .srow input{flex:1;width:auto}#box .srow button{margin-top:0}
+#box .g{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+#box #done{width:100%;margin-top:2.5rem}
+.hit{padding:1.1rem .4rem;border-bottom:.1rem solid var(--line);cursor:pointer}
+#cur{margin-top:1rem;color:var(--gold)}
+#cal{overflow:hidden}
+.d.hol{box-shadow:inset 0 0 0 .2rem #ff8a80;background:rgba(255,138,128,.16)}.d.hol .h{color:#ff8a80}
+.d.spl{box-shadow:inset 0 0 0 .2rem #6ec1e4}.d.spl .h{color:#7fd3f7}
+.d.today.hol .h,.d.today.spl .h{color:#12201a}
+#notes{margin-top:.8rem;font-size:1.35rem;line-height:1.3;color:var(--fg)}
+#notes .md{color:var(--dim);margin-bottom:.3rem}
+#notes .nt{display:flex;gap:.6rem;align-items:baseline}
+#notes b{min-width:3.6rem;font-weight:600}
+#notes i{width:.9rem;height:.9rem;border-radius:50%;flex:none;display:inline-block;background:#6ec1e4}
+#notes i.h{background:#ff8a80}
+#cal.ramadan{background:#0b3b1e;border-color:#2fbf6b}
+#cal.ramadan #chead .ar{color:#7dffb0}
+#cal.ramadan .d{background:rgba(61,220,132,.12)}
+#cal.ramadan .d.today{background:#3ddc84;color:#062a14}#cal.ramadan .d.today .g{color:#062a14}
+#cal.ramadan .d.hol{background:rgba(255,138,128,.2)}
+/* phone layout: azan cards 20% narrower (14.4rem instead of 18rem) */
+.phone #stage{width:50.4rem}
+.phone .p{padding:.9rem .8rem}
+.phone .p .ar{font-size:2.8rem}
+.phone .p .r{flex-direction:column;align-items:center;gap:0}
+.phone .p .r b{font-size:2.8rem}
+</style></head><body>
 <div id="stage">
  <div class="col">
   <div class="card" id="clock">
    <div id="trow"><div id="time">--:--</div><div id="sub"></div></div>
    <div id="moon"></div>
-   <div id="sun"></div>
    <div id="hdate"></div>
    <div id="eid"></div>
    <div id="gdate"></div>
   </div>
   <div class="card" id="cal"><div id="chead"></div><div id="grid"></div><div id="notes"></div></div>
-  <div class="card" id="wx"><div class="city"></div><div class="t">--</div><div class="c"></div><a id="qshort" href="#qibla"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polygon points="15.5,8.5 13.5,13.5 8.5,15.5 10.5,10.5"/></svg><span></span></a></div>
+  <div class="card" id="wx"><div class="city"></div><div class="t">--</div><div class="c"></div></div>
  </div>
  <div class="col" id="pr"></div>
 </div>
-
-<section id="v-salah" class="view hide"><h1>Learn Salah</h1><p>Madhhab: <b id="madnote1"></b> (change it in More → Settings)</p>
- <div class="soon"><b>Coming next:</b> wudu, ghusl and tayammum step by step, how to pray, the rakats for each prayer in your madhhab, and common mistakes.</div></section>
-<section id="v-duas" class="view hide"><h1>Duas &amp; Surahs</h1>
- <div class="soon"><b>Coming next:</b> the Surahs and supplications used in prayer, with Arabic, transliteration, translation and audio, plus morning and evening azkar.</div></section>
-<section id="v-occ" class="view hide"><h1>Occasions</h1>
- <div class="soon"><b>Coming next:</b> a Ramadan companion, then Hajj and Umrah guides, and the Eid and special-day guides. The Hijri calendar with special days is on the Home screen.</div></section>
-<section id="v-more" class="view hide"><h1>More</h1>
- <a class="item" href="#qibla"><div>Qibla compass<small>Direction of the Kaaba from where you are</small></div><span class="c">›</span></a>
- <a class="item" href="#tasbeeh"><div>Tasbeeh counter<small>Count your dhikr</small></div><span class="c">›</span></a>
- <button class="item" id="mset"><div>Settings<small>City, madhhab, theme, namaz times</small></div><span class="c">›</span></button></section>
-<section id="v-qibla" class="view hide"><a class="back" href="#more"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>More</a><h1>Qibla</h1>
- <svg id="qdial" viewBox="0 0 200 200"><g id="dial"></g><polygon id="qptr" points="100,2 93,17 107,17"/></svg>
- <div id="qinfo"></div><div id="qstat">Tap “Enable compass”, then hold your phone flat.</div>
- <div style="text-align:center"><button class="btn" id="qgo">Enable compass</button></div></section>
-<section id="v-tasbeeh" class="view hide"><a class="back" href="#more"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>More</a><h1>Tasbeeh</h1><div id="tbody"></div></section>
-<nav id="nav"><a href="#home" data-go="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></svg>Home</a><a href="#salah" data-go="salah"><svg viewBox="0 0 24 24"><path d="M5 21V10a7 7 0 0 1 14 0v11z"/><path d="M9 21v-7a3 3 0 0 1 6 0v7"/></svg>Salah</a><a href="#duas" data-go="duas"><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3zM13 5h8v14h-8z"/></svg>Duas</a><a href="#occ" data-go="occ"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Occasions</a><a href="#more" data-go="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</a></nav>
 <div id="sheet"><div id="box">
  <h2>Settings</h2>
  <label>City (search any state or country)</label>
@@ -52,10 +118,8 @@
  <div id="res"></div>
  <button id="gps">Use my GPS location</button>
  <div id="cur"></div>
- <label>Madhhab (Asr time and prayer guides)</label>
- <select id="mad"><option value="hanafi">Hanafi</option><option value="shafii">Shafi’i</option><option value="maliki">Maliki (guides coming later)</option><option value="hanbali">Hanbali (guides coming later)</option></select>
- <label>Theme</label>
- <select id="thm"><option value="dark">Dark emerald</option><option value="light">Light ivory</option><option value="auto">Match my phone</option></select>
+ <label>Asr calculation</label>
+ <select id="asr"><option value="1">Shafi / Maliki / Hanbali (shadow ×1)</option><option value="2">Hanafi (shadow ×2)</option></select>
  <label>Hijri date adjustment (local moon sighting)</label>
  <select id="adj"><option value="-2">−2 days</option><option value="-1">−1 day</option><option value="0">No change</option><option value="1">+1 day</option><option value="2">+2 days</option></select>
  <label>Your masjid’s namaz times (optional). Type +15 for minutes after azan, or a 24-hour time such as 13:00. Leave blank to hide.</label>
@@ -67,8 +131,195 @@
  </div>
  <button id="done">Save</button>
 </div></div>
-<script src="core.js"></script>
-<script src="qibla.js"></script>
-<script src="tasbeeh.js"></script>
-<script src="shell.js"></script>
-</body></html>
+<script>
+// ---- settings (the admin page will edit these later) ----
+const CFG={city:'Bengaluru',lat:12.9716,lon:77.5946,
+  asrFactor:1,        // 1 = Shafi/Maliki/Hanbali, 2 = Hanafi
+  hijriAdjust:0,      // moon-sighting correction in days (-2..+2)
+  offsets:{fajr:0,dhuhr:0,asr:0,maghrib:0,isha:0},
+  // namaz (jamaat) times: 'after' = minutes after azan, 'at' = fixed clock time (24h)
+  namaz:{fajr:{after:15},dhuhr:{at:'13:00'},asr:{at:'16:00'},maghrib:{after:5},isha:{at:'20:00'}},
+  jumuah:'13:00',   // replaces Dhuhr namaz on Fridays
+  eid:'08:30'};    // Eid namaz, shown on 1 Shawwal and 10 Dhul Hijjah // minutes added to calculated azan times
+const WEB=location.protocol.startsWith('http');
+let saved=null;try{saved=JSON.parse(localStorage.getItem('cfg'))}catch(e){}
+if(saved)Object.assign(CFG,saved);
+else if(WEB){CFG.namaz={};CFG.jumuah='';CFG.eid=''}   // public app: no masjid-specific times until the user enters their own
+const NAMES=[['fajr','الفجر','FAJR'],['dhuhr','الظهر','DHUHR'],['asr','العصر','ASR'],['maghrib','المغرب','MAGHRIB'],['isha','العشاء','ISHA']];
+
+// ---- azan times: astronomical calculation, works offline (Karachi: Fajr/Isha 18°) ----
+const rad=Math.PI/180,sin=a=>Math.sin(a*rad),cos=a=>Math.cos(a*rad),tan=a=>Math.tan(a*rad);
+const fix=(a,b)=>{a-=b*Math.floor(a/b);return a<0?a+b:a};
+function prayers(date){
+  const tz=-date.getTimezoneOffset()/60;
+  const jd=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/864e5+2440587.5-CFG.lon/360;
+  const D=jd-2451545,g=fix(357.529+.98560028*D,360),q=fix(280.459+.98564736*D,360);
+  const L=fix(q+1.915*sin(g)+.02*sin(2*g),360),e=23.439-3.6e-7*D;
+  const RA=fix(Math.atan2(cos(e)*sin(L),cos(L))/rad,360)/15;
+  const eqt=fix(q/15-RA+12,24)-12,dec=Math.asin(sin(e)*sin(L))/rad;
+  const noon=12-eqt-CFG.lon/15+tz,lat=CFG.lat;
+  const at=(ang,ccw)=>{const t=Math.acos((-sin(ang)-sin(lat)*sin(dec))/(cos(lat)*cos(dec)))/rad/15;return noon+(ccw?-t:t)};
+  const asrAng=-Math.atan(1/(CFG.asrFactor+tan(Math.abs(lat-dec))))/rad;
+  const h={fajr:at(18,1),dhuhr:noon+.0,asr:at(asrAng,0),maghrib:at(.833,0),isha:at(18,0)};
+  const day=new Date(date.getFullYear(),date.getMonth(),date.getDate()),out={};
+  for(const k in h)out[k]=new Date(day.getTime()+Math.round(h[k]*60+CFG.offsets[k])*6e4);
+  return out;
+}
+// ---- Hijri (Umm al-Qura via browser Intl) ----
+const adj=d=>new Date(d.getTime()+CFG.hijriAdjust*864e5);
+const hparts=d=>{const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'numeric',year:'numeric'}).formatToParts(adj(d));const g=t=>+p.find(x=>x.type===t).value;return{d:g('day'),m:g('month'),y:g('year')}};
+const hName=(d,loc)=>new Intl.DateTimeFormat(loc+'-u-ca-islamic-umalqura-nu-latn',{month:'long'}).format(adj(d));
+const noonOf=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate(),12);
+const fmt=d=>{let h=d.getHours(),m=d.getMinutes(),ap=h>=12?'PM':'AM';h=h%12||12;return[h+':'+String(m).padStart(2,'0'),ap]};
+const $=s=>document.querySelector(s);
+
+// ---- moon phase & distance (low-precision astronomical series, offline) ----
+function moon(now){
+  const T=(now/864e5+2440587.5-2451545)/36525;
+  const D=fix(297.8502+445267.1115*T,360),M=fix(357.5291+35999.0503*T,360),Mp=fix(134.9634+477198.8676*T,360),F=fix(93.272+483202.0175*T,360);
+  const lm=fix(218.3165+481267.8813*T+6.289*sin(Mp)+1.274*sin(2*D-Mp)+.658*sin(2*D)+.214*sin(2*Mp)-.186*sin(M)-.114*sin(2*F),360);
+  const ls=fix(280.4665+36000.7698*T+1.915*sin(M)+.02*sin(2*M),360);
+  const dist=385001-20905*cos(Mp)-3699*cos(2*D-Mp)-2956*cos(2*D)-570*cos(2*Mp);
+  const psi=fix(lm-ls,360),wax=psi<180,e=wax?psi:360-psi;
+  return{k:(1-cos(e))/2,wax,e,dist,age:psi/360*29.53};
+}
+function drawMoon(now){
+  const m=moon(now),R=19*384400/m.dist,a=R*cos(m.e),ax=Math.abs(a).toFixed(2);   // disc size follows real distance
+  const lit='M0 '+-R+' A'+R+' '+R+' 0 0 1 0 '+R+' A'+ax+' '+R+' 0 0 '+(a>0?0:1)+' 0 '+-R+'Z';
+  $('#moon').innerHTML='<svg viewBox="-22 -22 44 44"><circle r="'+R+'" fill="#24352e" stroke="#4d6b5e" stroke-width=".6"/><path d="'+lit+'" fill="#f3ecc8"'+(m.wax?'':' transform="scale(-1,1)"')+'/></svg>'+
+    '<div>'+Math.round(m.k*100)+'% lit<br>'+(m.wax?'Waxing':'Waning')+' · day '+Math.round(m.age)+'</div>';
+}
+const DAY=864e5;
+// special days by Hijri month: d = month description, n = [[days], type, text]; type h = holiday, s = special day
+const EVT={
+ 1:{d:'Sacred month · fast the 9th & 10th',n:[[[1],'s','Islamic New Year'],[[10],'h','Ashura']]},
+ 2:{d:'Second month of the year',n:[]},
+ 3:{d:'Month of the Prophet’s ﷺ birth',n:[[[12],'h','Mawlid (Eid Milad-un-Nabi)']]},
+ 4:{d:'Fourth month of the year',n:[[[11],'s','Giyarvin (Gyarvi Sharif)']]},
+ 5:{d:'Fifth month of the year',n:[]},
+ 6:{d:'Sixth month of the year',n:[]},
+ 7:{d:'Sacred month · before Sha’ban',n:[[[1],'s','Rajab begins'],[[27],'s','Isra & Mi’raj (Shab-e-Meraj)']]},
+ 8:{d:'Month before Ramadan · extra fasting',n:[[[15],'s','Shab-e-Barat']]},
+ 9:{d:'Month of fasting and the Qur’an',n:[[[1],'s','First day of Ramadan'],[[17],'s','Battle of Badr'],[[21,23,25,27,29],'s','Odd nights · Laylat al-Qadr']]},
+ 10:{d:'Month of Eid · 6 fasts of Shawwal',n:[[[1],'h','Eid al-Fitr']]},
+ 11:{d:'Sacred month · before Hajj',n:[]},
+ 12:{d:'Month of Hajj · first 10 days',n:[[[9],'s','Day of Arafah'],[[10],'h','Eid al-Adha (Bakrid)'],[[11,12,13],'s','Days of Tashreeq']]}
+};
+function mlen(first){const m=hparts(first).m;let n=1;while(n<31&&hparts(new Date(first.getTime()+n*DAY)).m===m)n++;return n}
+function monthFirst(t,off){
+  let first=new Date(t.getTime()-(hparts(t).d-1)*DAY);
+  for(let i=0;i<Math.abs(off);i++){
+    if(off>0)first=new Date(first.getTime()+mlen(first)*DAY);
+    else{const p=new Date(first.getTime()-DAY);first=new Date(p.getTime()-(hparts(p).d-1)*DAY)}
+  }
+  return first;
+}
+let calOff=0,calTimer=null;
+function setCal(off){calOff=Math.max(-60,Math.min(60,off));clearTimeout(calTimer);if(calOff)calTimer=setTimeout(()=>setCal(0),30000);drawCalendar(new Date())}
+function drawCalendar(now){
+  const t=noonOf(now),h=hparts(t),first=monthFirst(t,calOff),fh=hparts(first),len=mlen(first);
+  const ev=EVT[fh.m]||{d:'',n:[]},notes=ev.n.map(x=>x.slice()),mark={};
+  if(fh.m===9)for(let d=len;d>=1;d--)if(new Date(first.getTime()+(d-1)*DAY).getDay()===5){notes.push([[d],'s','Jumu’atul-Vida (last Friday)']);break}
+  notes.forEach(n=>n[0].forEach(d=>{if(n[1]==='h'||mark[d]!=='h')mark[d]=n[1]}));
+  const last=new Date(first.getTime()+(len-1)*DAY),mo=x=>x.toLocaleDateString('en-GB',{month:'short'});
+  $('#cal').classList.toggle('ramadan',fh.m===9);
+  $('#chead').innerHTML='<button class="nav" data-nav="-1">‹</button><div class="mid"><div class="ar">'+hName(first,'ar')+' '+fh.y+'</div><div class="en">'+hName(first,'en')+' '+fh.y+' AH · '+mo(first)+(mo(last)!==mo(first)?'–'+mo(last):'')+' '+last.getFullYear()+(calOff?' · <span class="tod" data-nav="0">Today</span>':'')+'</div></div><button class="nav" data-nav="1">›</button>';
+  const dn=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],de=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  let g=dn.map((a,i)=>'<div class="dn">'+a+'<br>'+de[i]+'</div>').join('');
+  for(let i=0;i<first.getDay();i++)g+='<div></div>';
+  for(let d=1;d<=len;d++){const gd=new Date(first.getTime()+(d-1)*DAY),dow=gd.getDay();
+    g+='<div class="d'+(!calOff&&d===h.d?' today':'')+(dow===5?' fri':'')+(mark[d]==='h'?' hol':mark[d]?' spl':'')+'"><div class="h">'+d+'</div><div class="g">'+gd.getDate()+'</div></div>'}
+  $('#grid').innerHTML=g;
+  const lab=n=>n[0].length===1?n[0][0]:n[0][0]+'–'+n[0][n[0].length-1];
+  $('#notes').innerHTML='<div class="md">'+ev.d+'</div>'+notes.map(n=>'<div class="nt"><i class="'+n[1]+'"></i><b>'+lab(n)+'</b><span>'+n[2]+'</span></div>').join('');
+}
+$('#cal').addEventListener('click',e=>{const b=e.target.closest('[data-nav]');if(b){const v=+b.dataset.nav;setCal(v===0?0:calOff+v)}});
+let tx=null;
+$('#cal').addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+$('#cal').addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>60)setCal(calOff+(dx<0?1:-1))});
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')setCal(calOff+1);if(e.key==='ArrowLeft')setCal(calOff-1)});
+const clockAt=(d,hm)=>{const[h,m]=hm.split(':');return new Date(d.getFullYear(),d.getMonth(),d.getDate(),+h,+m)};
+function namazTimes(date,az){
+  const o={};
+  for(const k in CFG.namaz){const c=CFG.namaz[k];o[k]=c.after!=null?new Date(az[k].getTime()+c.after*6e4):clockAt(date,c.at)}
+  if(date.getDay()===5&&CFG.jumuah)o.dhuhr=clockAt(date,CFG.jumuah);
+  return o;
+}
+function drawPrayers(now){
+  const az=prayers(now),nm=namazTimes(now,az),fri=now.getDay()===5;
+  let next=NAMES.findIndex(n=>(nm[n[0]]||az[n[0]])>now);
+  const wrap=next<0;
+  if(wrap){const t=new Date(now.getTime()+864e5),a2=prayers(t);next=0;az.fajr=a2.fajr;nm.fajr=namazTimes(t,a2).fajr}
+  $('#pr').innerHTML=NAMES.map((n,i)=>{
+    const jum=fri&&n[0]==='dhuhr',[at,aa]=fmt(az[n[0]]),nv=nm[n[0]],[nt,na]=nv?fmt(nv):['',''];
+    return'<div class="card p'+(i===next?' next':(wrap||i<next)?' done':'')+'"><div class="ar">'+(jum?'الجمعة':n[1])+'</div><div class="en">'+(jum?"JUMU\u2019AH":n[2])+
+      '</div><div class="r az"><span>AZAN</span><b>'+at+'<small>'+aa+'</small></b></div>'+(nv?'<div class="r nm"><span>'+(jum?'JUMU\u2019AH':'NAMAZ')+'</span><b>'+nt+'<small>'+na+'</small></b></div>':'')+'</div>'}).join('');
+}
+let lastMin='',lastDay='';
+function tick(){
+  const now=new Date(),[tm,ap]=fmt(now);
+  $('#time').textContent=tm;$('#sub').innerHTML='<b>'+ap+'</b><span>'+String(now.getSeconds()).padStart(2,'0')+'s</span>';
+  const mk=now.getHours()+':'+now.getMinutes(),dk=now.toDateString();
+  if(dk!==lastDay){lastDay=dk;const h=hparts(noonOf(now));
+    $('#hdate').innerHTML=h.d+' '+hName(noonOf(now),'ar')+'<small>'+hName(noonOf(now),'en')+' '+h.y+' AH</small>';
+    $('#gdate').textContent=now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    const eidDay=(h.m===10&&h.d===1)||(h.m===12&&h.d===10),eb=$('#eid');
+    if(eidDay&&CFG.eid){const[et,ea]=fmt(clockAt(now,CFG.eid));eb.style.display='block';eb.textContent='عيد مبارك · EID NAMAZ '+et+' '+ea}else eb.style.display='none';
+    drawCalendar(now)}
+  if(mk!==lastMin){lastMin=mk;drawPrayers(now);drawMoon(now)}
+}
+// ---- weather (Open-Meteo, no key). Keeps last good reading if offline ----
+const WC={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Light drizzle',53:'Drizzle',55:'Drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',80:'Showers',81:'Showers',82:'Heavy showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'};
+function showWx(w){$('#wx .city').textContent=CFG.city+(matchMedia('(pointer:coarse)').matches?' · tap for settings':'');$('#wx .t').textContent=Math.round(w.t)+'°C';$('#wx .c').textContent=(WC[w.c]||'')+' · Humidity '+w.h+'%'}
+async function weather(){
+  try{
+    const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+CFG.lat+'&longitude='+CFG.lon+'&current=temperature_2m,relative_humidity_2m,weather_code&timezone=auto');
+    const j=(await r.json()).current,w={t:j.temperature_2m,h:j.relative_humidity_2m,c:j.weather_code};
+    showWx(w);try{localStorage.setItem('wx',JSON.stringify(w))}catch(e){}
+  }catch(e){try{const w=JSON.parse(localStorage.getItem('wx'));if(w)showWx(w);else $('#wx .city').textContent=CFG.city+' · weather unavailable'}catch(_){}}
+}
+// phone layout = touch device; add ?display to force the wide display layout (e.g. a touchscreen on the Pi)
+const PHONE=matchMedia('(pointer:coarse)').matches&&!/[?&]display/.test(location.search);
+document.documentElement.classList.toggle('phone',PHONE);
+// reload every night at 03:05 so a display picks up files updated from git
+(()=>{const n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate()+(n.getHours()>=3?1:0),3,5);setTimeout(()=>location.reload(),t-n)})();
+function fit(){const r=Math.min(innerWidth/(PHONE?50.4:54),innerHeight/96);document.documentElement.style.fontSize=r+'px';$('#stage').style.height=Math.max(96,innerHeight/r)+'rem'}
+// ---- settings sheet ----
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const FLD=['fajr','dhuhr','asr','maghrib','isha'];
+const toTxt=c=>!c?'':c.after!=null?'+'+c.after:c.at;
+function parseNz(v){v=v.trim();if(/^\+?\d{1,3}$/.test(v))return{after:+v};const m=v.match(/^(\d{1,2}):(\d{2})$/);return m&&+m[1]<24&&+m[2]<60?{at:m[1].padStart(2,'0')+':'+m[2]}:null}
+function openSettings(){
+  $('#sheet').classList.add('on');$('#q').value='';$('#res').innerHTML='';$('#cur').textContent='Current: '+CFG.city;
+  $('#asr').value=CFG.asrFactor;$('#adj').value=CFG.hijriAdjust;
+  FLD.forEach(k=>$('#n_'+k).value=toTxt(CFG.namaz[k]));$('#n_j').value=CFG.jumuah||'';$('#n_e').value=CFG.eid||'';
+}
+function setLoc(lat,lon,name){CFG.lat=+(+lat).toFixed(4);CFG.lon=+(+lon).toFixed(4);CFG.city=name;$('#cur').textContent='Current: '+name;$('#res').innerHTML=''}
+async function search(){
+  const q=$('#q').value.trim();if(!q)return;$('#res').textContent='Searching…';
+  try{
+    const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=8&language=en&name='+encodeURIComponent(q)),j=await r.json();
+    if(!j.results){$('#res').textContent='No match. Try another spelling.';return}
+    const nm=x=>x.name+(x.admin1?', '+x.admin1:'');
+    $('#res').innerHTML=j.results.map((x,i)=>'<div class="hit" data-i="'+i+'">'+esc(nm(x)+', '+x.country)+'</div>').join('');
+    $('#res').onclick=e=>{const el=e.target.closest('.hit');if(el){const x=j.results[+el.dataset.i];setLoc(x.latitude,x.longitude,nm(x))}};
+  }catch(e){$('#res').textContent='Search needs an internet connection.'}
+}
+function closeSettings(){
+  CFG.asrFactor=+$('#asr').value;CFG.hijriAdjust=+$('#adj').value;
+  const nz={};FLD.forEach(k=>{const c=parseNz($('#n_'+k).value);if(c)nz[k]=c});CFG.namaz=nz;
+  const j=parseNz($('#n_j').value),e=parseNz($('#n_e').value);CFG.jumuah=j&&j.at||'';CFG.eid=e&&e.at||'';
+  try{localStorage.setItem('cfg',JSON.stringify({lat:CFG.lat,lon:CFG.lon,city:CFG.city,asrFactor:CFG.asrFactor,hijriAdjust:CFG.hijriAdjust,namaz:CFG.namaz,jumuah:CFG.jumuah,eid:CFG.eid}))}catch(x){}
+  $('#sheet').classList.remove('on');lastDay='';lastMin='';tick();weather();
+}
+$('#wx').addEventListener('click',openSettings);
+$('#go').onclick=search;$('#q').addEventListener('keydown',e=>{if(e.key==='Enter')search()});$('#done').onclick=closeSettings;
+$('#gps').onclick=()=>{if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(
+  p=>setLoc(p.coords.latitude,p.coords.longitude,'My location ('+p.coords.latitude.toFixed(2)+', '+p.coords.longitude.toFixed(2)+')'),
+  ()=>{$('#cur').textContent='Could not get your location. Allow location access, or search for your city.'},{timeout:10000})};
+if(WEB&&!saved)setTimeout(openSettings,700);   // first launch: ask for city
+// keep the screen on when opened as .../index.html?awake (for a tablet used as a masjid display)
+if(/[?&]awake/.test(location.search)&&'wakeLock' in navigator){const lock=()=>navigator.wakeLock.request('screen').catch(()=>{});lock();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')lock()})}
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+addEventListener('resize',fit);fit();tick();setInterval(tick,1000);weather();setInterval(weather,18e5);
+</script></body></html>
