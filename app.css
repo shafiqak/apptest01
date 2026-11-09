@@ -1,3 +1,4 @@
+@font-face{font-family:"Quran Font";src:url(fonts/scheherazade-new.woff2) format("woff2");font-display:swap}
 :root{--bg:#06140f;--card:#0d2a20;--line:#1f4d3b;--gold:#e3c26a;--fg:#f2efe4;--dim:#8fb5a3;--ongold:#12201a;--hol:#ff8a80;--hol-bg:rgba(255,138,128,.16);--spl:#6ec1e4;--cell:rgba(255,255,255,.03);--cell2:rgba(255,255,255,.08);--ram-bg:#0b3b1e;--ram-line:#2fbf6b;--ram-ar:#7dffb0;--ram-cell:rgba(61,220,132,.12);--ram-today:#3ddc84;--ram-on:#062a14;--moon-lit:#f3ecc8;--moon-dark:#24352e;--moon-line:#4d6b5e}
 :root[data-theme="light"]{--bg:#f5f0e1;--card:#fffcf2;--line:#d9d0b5;--gold:#8c6a12;--fg:#1d2b24;--dim:#5b6b60;--ongold:#fffdf5;--hol:#c0392b;--hol-bg:rgba(192,57,43,.10);--spl:#1f78a8;--cell:rgba(0,0,0,.05);--cell2:rgba(0,0,0,.08);--ram-bg:#e1f3e6;--ram-line:#2e9f5a;--ram-ar:#12703b;--ram-cell:rgba(46,159,90,.14);--ram-today:#2e9f5a;--ram-on:#ffffff;--moon-lit:#c9a23d;--moon-dark:#d4ccb0;--moon-line:#a79f85}
 *{box-sizing:border-box;margin:0}
@@ -125,7 +126,7 @@ body{display:flex;align-items:center;justify-content:center;color:var(--fg);font
 .chips{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem}
 .chip{padding:.7rem 1.3rem;border-radius:99rem;border:.15rem solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-size:1.7rem;cursor:pointer}
 .chip.on{background:var(--gold);color:var(--ongold);border-color:var(--gold)}
-#tar{font-size:5rem;text-align:center;color:var(--gold);line-height:1.5;margin-top:1rem;font-family:"Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif}
+#tar{font-size:5rem;text-align:center;color:var(--gold);line-height:1.5;margin-top:1rem;font-family:"Quran Font","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif}
 #ten{text-align:center;color:var(--dim);font-size:1.8rem}
 #tbtn{display:block;margin:1.5rem auto;width:30rem;height:30rem;max-width:100%;border:0;border-radius:50%;background:var(--card);padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
 #tbtn svg{width:100%;height:100%}
@@ -154,7 +155,22 @@ body{display:flex;align-items:center;justify-content:center;color:var(--fg);font
 .rcd{background:var(--card);border:.15rem solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;margin-bottom:1rem}
 .rcd summary{font-size:2.2rem;font-weight:600;cursor:pointer;color:var(--fg)}
 .rc{margin-top:1rem}
-.arb{font-size:3.6rem;line-height:2;text-align:right;color:var(--gold);font-family:"Noto Naskh Arabic","Noto Sans Arabic","Amiri",system-ui,sans-serif}
+.arb{font-size:3.6rem;line-height:2;text-align:right;color:var(--gold);font-family:"Quran Font","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif}
 .rc .tr{font-style:italic;color:var(--fg);margin:.6rem 0;font-size:1.8rem;line-height:1.5}
 .rc .en{color:var(--dim);font-size:1.8rem;line-height:1.5}
 .alt{margin-top:1.6rem;padding-top:1rem;border-top:.1rem dashed var(--line);color:var(--spl);font-weight:600;font-size:1.8rem}
+
+/* ---------- phase 3: Quran reader and duas ---------- */
+.arn{font-family:"Quran Font","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif;color:var(--gold);font-size:2.6rem;font-weight:400}
+.view h1 .arn{font-size:3rem;margin-left:1rem}
+#qsearch,#dq{width:100%;font:inherit;font-size:2.1rem;padding:1rem 1.2rem;border-radius:1rem;border:.15rem solid var(--line);background:var(--card);color:var(--fg);margin:1.2rem 0}
+.ay{background:var(--card);border:.15rem solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;margin-bottom:1rem}
+.ay.mark{border-color:var(--gold)}
+.ay .num{display:inline-block;min-width:3.2rem;height:3.2rem;border-radius:50%;background:var(--cell2);color:var(--gold);text-align:center;line-height:3.2rem;font-size:1.5rem}
+.ay .tr{font-style:italic;margin:.6rem 0;font-size:1.8rem;line-height:1.5}
+.ay .en{color:var(--dim);font-size:1.8rem;line-height:1.5}
+.bsm{text-align:center!important;margin:1rem 0 1.4rem}
+.qnav{display:flex;justify-content:space-between;margin:1.6rem 0}
+.qnav a{text-decoration:none}
+a.chip{text-decoration:none}
+.src a{color:var(--gold)}

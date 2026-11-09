@@ -20,13 +20,13 @@ const REC=[
     en:`O Allah, put distance between me and my sins as You put distance between the east and the west. O Allah, cleanse me of sins as a white garment is cleansed of dirt. O Allah, wash my sins away with water, snow and hail.`,src:`Bukhari, Muslim`}]},
  {id:'taawwudh',t:'Seeking refuge (Ta’awwudh)',ar:`أَعُوذُ بِٱللَّٰهِ مِنَ ٱلشَّيْطَانِ ٱلرَّجِيمِ`,tr:`A’udhu billahi minash-shaytanir-rajim`,en:`I seek refuge in Allah from Satan, the accursed.`,src:`Quran 16:98`},
  {id:'bismillah',t:'Bismillah',ar:`بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ`,tr:`Bismillahir-Rahmanir-Rahim`,en:`In the name of Allah, the Most Gracious, the Most Merciful.`,src:`Quran`},
- {id:'fatiha',t:'Surah Al-Fatiha',ar:`بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ. ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ. ٱلرَّحْمَٰنِ ٱلرَّحِيمِ. مَٰلِكِ يَوْمِ ٱلدِّينِ. إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ. ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ. صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ`,
+ {id:'fatiha',q:'1:1-7',t:'Surah Al-Fatiha',ar:`بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ. ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ. ٱلرَّحْمَٰنِ ٱلرَّحِيمِ. مَٰلِكِ يَوْمِ ٱلدِّينِ. إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ. ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ. صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ`,
   tr:`Bismillahir-Rahmanir-Rahim. Alhamdu lillahi rabbil-’alamin. Ar-Rahmanir-Rahim. Maliki yawmid-din. Iyyaka na’budu wa iyyaka nasta’in. Ihdinas-siratal-mustaqim. Siratal-ladhina an’amta ’alayhim, ghayril-maghdubi ’alayhim wa lad-dallin. (Then say: Amin)`,
   en:`In the name of Allah, the Most Gracious, the Most Merciful. All praise is for Allah, Lord of the worlds. The Most Gracious, the Most Merciful. Master of the Day of Judgment. You alone we worship and You alone we ask for help. Guide us to the straight path, the path of those You have blessed, not of those who earned Your anger, nor of those who went astray.`,
-  src:`Quran 1. Text to be verified against a standard Mushaf at review.`},
- {id:'ikhlas',t:'Surah Al-Ikhlas (example short surah)',ar:`قُلْ هُوَ ٱللَّهُ أَحَدٌ. ٱللَّهُ ٱلصَّمَدُ. لَمْ يَلِدْ وَلَمْ يُولَدْ. وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ`,
+  src:`Quran 1. Say Amin after it. Text: Noble Qur’an Encyclopedia; transliteration and translation (Saheeh International): Tanzil.`},
+ {id:'ikhlas',q:'112:1-4',t:'Surah Al-Ikhlas (example short surah)',ar:`قُلْ هُوَ ٱللَّهُ أَحَدٌ. ٱللَّهُ ٱلصَّمَدُ. لَمْ يَلِدْ وَلَمْ يُولَدْ. وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ`,
   tr:`Qul huwa Allahu ahad. Allahus-samad. Lam yalid wa lam yulad. Wa lam yakun lahu kufuwan ahad`,
-  en:`Say: He is Allah, the One. Allah, the Self-Sufficient. He neither begets nor is born, and there is none comparable to Him.`,src:`Quran 112. More surahs come in the Duas and Surahs section.`},
+  en:`Say: He is Allah, the One. Allah, the Self-Sufficient. He neither begets nor is born, and there is none comparable to Him.`,src:`Quran 112. Text: Noble Qur’an Encyclopedia; transliteration and translation (Saheeh International): Tanzil. More surahs are in the Quran reader.`},
  {id:'ruku',t:'In ruku (bowing)',ar:`سُبْحَانَ رَبِّيَ ٱلْعَظِيمِ`,tr:`Subhana rabbiyal-’azim (three times)`,en:`Glory be to my Lord, the Magnificent.`,src:`Abu Dawud, Tirmidhi, Ibn Majah`,
   alts:[{l:`Subbuhun Quddus`,ar:`سُبُّوحٌ قُدُّوسٌ رَبُّ ٱلْمَلَائِكَةِ وَٱلرُّوحِ`,tr:`Subbuhun quddusun rabbul-mala’ikati war-ruh`,en:`Most Glorious, Most Holy, Lord of the angels and the Spirit.`,src:`Muslim`},
         {l:`Subhanaka Allahumma rabbana`,ar:`سُبْحَانَكَ ٱللَّٰهُمَّ رَبَّنَا وَبِحَمْدِكَ، ٱللَّٰهُمَّ ٱغْفِرْ لِي`,tr:`Subhanaka Allahumma rabbana wa bihamdika, Allahummaghfir li`,en:`Glory and praise to You, our Lord. O Allah, forgive me.`,src:`Bukhari, Muslim`}]},
@@ -47,9 +47,9 @@ const REC=[
  {id:'durood',t:'Durood Ibrahim (final sitting)',ar:`ٱللَّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، ٱللَّٰهُمَّ بَارِكْ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ`,
   tr:`Allahumma salli ’ala Muhammadin wa ’ala ali Muhammad, kama sallayta ’ala Ibrahima wa ’ala ali Ibrahim, innaka Hamidun Majid. Allahumma barik ’ala Muhammadin wa ’ala ali Muhammad, kama barakta ’ala Ibrahima wa ’ala ali Ibrahim, innaka Hamidun Majid`,
   en:`O Allah, send prayers upon Muhammad and the family of Muhammad as You sent prayers upon Ibrahim and the family of Ibrahim; You are Praiseworthy, Glorious. O Allah, bless Muhammad and the family of Muhammad as You blessed Ibrahim and the family of Ibrahim; You are Praiseworthy, Glorious.`,src:`Bukhari, Muslim`},
- {id:'duabefore',t:'Dua before the salaam',ar:`رَبَّنَا آتِنَا فِي ٱلدُّنْيَا حَسَنَةً وَفِي ٱلْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ ٱلنَّارِ`,tr:`Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina ’adhaban-nar`,en:`Our Lord, give us good in this world and good in the next, and protect us from the punishment of the Fire.`,src:`Quran 2:201`,
+ {id:'duabefore',q:'2:201',t:'Dua before the salaam',ar:`رَبَّنَا آتِنَا فِي ٱلدُّنْيَا حَسَنَةً وَفِي ٱلْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ ٱلنَّارِ`,tr:`Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina ’adhaban-nar`,en:`Our Lord, give us good in this world and good in the next, and protect us from the punishment of the Fire.`,src:`Quran 2:201`,
   alts:[{l:`Dua of Abu Bakr`,ar:`ٱللَّٰهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْمًا كَثِيرًا، وَلَا يَغْفِرُ ٱلذُّنُوبَ إِلَّا أَنْتَ، فَٱغْفِرْ لِي مَغْفِرَةً مِنْ عِنْدِكَ وَٱرْحَمْنِي، إِنَّكَ أَنْتَ ٱلْغَفُورُ ٱلرَّحِيمُ`,tr:`Allahumma inni zalamtu nafsi zulman kathira, wa la yaghfirudh-dhunuba illa anta, faghfir li maghfiratan min ’indika warhamni, innaka antal-Ghafurur-Rahim`,en:`O Allah, I have wronged myself greatly and none forgives sins but You. Forgive me with forgiveness from You and have mercy on me; You are the Forgiving, the Merciful.`,src:`Bukhari, Muslim`},
-        {l:`Rabbij’alni (often taught in the Hanafi school)`,ar:`رَبِّ ٱجْعَلْنِي مُقِيمَ ٱلصَّلَاةِ وَمِنْ ذُرِّيَّتِي، رَبَّنَا وَتَقَبَّلْ دُعَاءِ`,tr:`Rabbij’alni muqimas-salati wa min dhurriyyati, rabbana wa taqabbal du’a`,en:`My Lord, make me one who establishes prayer, and my offspring too. Our Lord, accept my prayer.`,src:`Quran 14:40`},
+        {q:'14:40',l:`Rabbij’alni (often taught in the Hanafi school)`,ar:`رَبِّ ٱجْعَلْنِي مُقِيمَ ٱلصَّلَاةِ وَمِنْ ذُرِّيَّتِي، رَبَّنَا وَتَقَبَّلْ دُعَاءِ`,tr:`Rabbij’alni muqimas-salati wa min dhurriyyati, rabbana wa taqabbal du’a`,en:`My Lord, make me one who establishes prayer, and my offspring too. Our Lord, accept my prayer.`,src:`Quran 14:40`},
         {l:`Seeking refuge (four things)`,ar:`ٱللَّٰهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ جَهَنَّمَ، وَمِنْ عَذَابِ ٱلْقَبْرِ، وَمِنْ فِتْنَةِ ٱلْمَحْيَا وَٱلْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ ٱلْمَسِيحِ ٱلدَّجَّالِ`,tr:`Allahumma inni a’udhu bika min ’adhabi jahannam, wa min ’adhabil-qabr, wa min fitnatil-mahya wal-mamat, wa min sharri fitnatil-masihid-dajjal`,en:`O Allah, I seek refuge in You from the punishment of Hell, the punishment of the grave, the trials of life and death, and the evil of the trial of the False Messiah.`,src:`Bukhari, Muslim`}]},
  {id:'salaam',t:'Salaam (ending the prayer)',ar:`ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ`,tr:`As-salamu ’alaykum wa rahmatullah (right, then left)`,en:`Peace and Allah’s mercy be upon you.`,src:`Abu Dawud, Tirmidhi`,
   alts:[{l:`With “wa barakatuh”`,ar:`ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ وَبَرَكَاتُهُ`,tr:`As-salamu ’alaykum wa rahmatullahi wa barakatuh`,en:`Peace, Allah’s mercy and blessings be upon you.`,src:`Abu Dawud (narration differs; reviewer to confirm)`}]},
@@ -119,7 +119,7 @@ const PAGES={
   `Going ahead of the imam in ruku, sujood or the salaam.`,
   `Leaving the phone on. Silence it.`]}],refs:ST},
 };
-const MENU=[['conditions','Before you pray','Conditions of a valid prayer'],['wudu','Wudu','Ablution, step by step'],['ghusl','Ghusl','The full bath'],['tayammum','Tayammum','When water is not available'],['steps','How to pray','Step by step'],['rakats','Rakats','Fard, sunnah and witr for each prayer'],['types','Fard, Sunnah, Wajib, Nafl','What the terms mean'],['recitations','Recitations','Arabic, transliteration, translation and alternatives'],['mistakes','Common mistakes','']];
+const MENU=[['conditions','Before you pray','Conditions of a valid prayer'],['wudu','Wudu','Ablution, step by step'],['ghusl','Ghusl','The full bath'],['tayammum','Tayammum','When water is not available'],['steps','How to pray','Step by step'],['rakats','Rakats','Fard, sunnah and witr for each prayer'],['types','Fard, Sunnah, Wajib, Nafl','What the terms mean'],['recitations','Recitations','Arabic, transliteration, translation and alternatives'],['quran','Quran','Read the Quran: Arabic, transliteration, translation'],['mistakes','Common mistakes','']];
 
 // rakat tables: [type, count, label]; types f fard, w wajib, sm sunnah mu'akkadah, sg sunnah ghayr mu'akkadah, n nafl
 const RK={
@@ -140,13 +140,17 @@ let RKP='fajr';
 const hdr=t=>`<a class="back" href="#salah"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>Salah</a><h1>${t}</h1>`;
 const banner=()=>`<div class="sbanner">Draft: not yet reviewed by a scholar. Please confirm with your imam.</div>`;
 const mchips=()=>`<div class="chips">`+['hanafi','shafii'].map(m=>`<button class="chip${SM===m?' on':''}" data-sm="${m}">${MADHHAB[m]}</button>`).join('')+`</div>`+((CFG.madhhab==='maliki'||CFG.madhhab==='hanbali')?`<p>Guides for the ${MADHHAB[CFG.madhhab]} school are coming. For now, choose one of these.</p>`:'');
-const rec=(r,alt)=>`<div class="rc"><div class="arb" lang="ar" dir="rtl">${r.ar}</div><div class="tr">${esc(r.tr)}</div><div class="en">${esc(r.en)}</div><div class="src">${esc(r.src)}</div></div>`;
+const rec=r=>{if(r.q&&QD.ar&&QD.en&&QD.tr)r={...r,ar:qtext('ar',r.q),tr:qtext('tr',r.q),en:qtext('en',r.q)};return recHtml(r)};
+const recHtml=r=>`<div class="rc"><div class="arb" lang="ar" dir="rtl">${r.ar}</div><div class="tr">${esc(r.tr)}</div><div class="en">${esc(r.en)}</div><div class="src">${esc(r.src)}</div></div>`;
 function body(b){
   return b.map(x=>{let s='';if(x.h)s+=`<h2>${x.h}</h2>`;const p=pick(x.p);if(p)s+=`<p>${p}</p>`;
     for(const k of ['l','n']){let a=pick(x[k]);if(a){a=a.map(pick).filter(Boolean);s+=`<${k==='l'?'ul':'ol'}>`+a.map(i=>`<li>${i}</li>`).join('')+`</${k==='l'?'ul':'ol'}>`}}return s}).join('');
 }
-function renderSalah(sub){
-  const el=$('#sbody');if(!sub){
+function renderSalah(sub,sub2){
+  const el=$('#sbody');
+  if(sub==='quran'){renderQuran(sub2);return}
+  if(sub==='recitations'&&!(QD.ar&&QD.en&&QD.tr))Promise.all(['ar','en','tr'].map(qload)).then(()=>{if(location.hash.startsWith('#salah/recitations'))renderSalah('recitations')}).catch(()=>{});
+  if(!sub){
     el.innerHTML=`<h1>Learn Salah</h1>${banner()}`+MENU.map(m=>`<a class="item" href="#salah/${m[0]}"><div>${m[1]}${m[2]?`<small>${m[2]}</small>`:''}</div><span class="c">›</span></a>`).join('');return}
   let h='';
   if(sub==='rakats'){
@@ -154,7 +158,7 @@ function renderSalah(sub){
     h=hdr('Rakats')+banner()+mchips()+`<div class="chips">`+['fajr','dhuhr','asr','maghrib','isha'].map(p=>`<button class="chip${RKP===p?' on':''}" data-rp="${p}">${p[0].toUpperCase()+p.slice(1)}</button>`).join('')+`</div>`+
       T[RKP].map(r=>`<div class="rk ${r[0]}"><b>${r[1]}</b><span>${r[2]}</span></div>`).join('')+`<p>Total: ${tot} rakats including optional ones. Fard is the same in every school.</p>`+((RKNOTE[SM]||{})[RKP]?`<p>${RKNOTE[SM][RKP]}</p>`:'')+`<p class="src">Hanafi: Radd al-Muhtar, Nur al-Idah. Shafi’i: ’Umdat al-Salik, Minhaj al-Talibin. ${ST} Jumu’ah has its own guide (later).</p>`;
   }else if(sub==='recitations'){
-    h=hdr('Recitations')+banner()+REC.map(r=>`<details class="rcd"><summary>${r.t}</summary>${rec(r)}${(r.alts||[]).map(a=>`<div class="alt">Alternative: ${esc(a.l)}</div>${rec(a)}`).join('')}</details>`).join('')+`<p class="src">Quran text to be checked against a standard Mushaf. ${ST}</p>`;
+    h=hdr('Recitations')+banner()+REC.map(r=>`<details class="rcd"><summary>${r.t}</summary>${rec(r)}${(r.alts||[]).map(a=>`<div class="alt">Alternative: ${esc(a.l)}</div>${rec(a)}`).join('')}</details>`).join('')+`<p class="src">Quranic items are read from the embedded Quran data. ${ST}</p>`;
   }else if(PAGES[sub]){
     const P=PAGES[sub];
     h=hdr(P.t)+banner()+(P.m?mchips():'')+(P.note?`<p>${P.note}</p>`:'')+
