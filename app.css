@@ -136,3 +136,25 @@ body{display:flex;align-items:center;justify-content:center;color:var(--fg);font
 #tbtn .of{font:500 13px system-ui,sans-serif;fill:var(--dim)}
 #tmeta{text-align:center;color:var(--dim);font-size:1.7rem;margin:.5rem 0 1.2rem}
 #tact{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+
+/* ---------- phase 2: Learn Salah ---------- */
+.sbanner{background:var(--hol-bg);border:.15rem solid var(--hol);color:var(--fg);border-radius:1.2rem;padding:1rem 1.4rem;font-size:1.7rem;margin-bottom:1.4rem}
+.view h2{font-size:2.4rem;color:var(--gold);margin:1.8rem 0 .6rem}
+.view ul,.view ol{padding-left:3rem;line-height:1.5;margin-bottom:1rem}
+.view li{margin-bottom:.8rem}
+.view .src{font-size:1.45rem;color:var(--dim);line-height:1.4;margin-top:.6rem}
+.steps li{margin-bottom:1.4rem}.steps b{color:var(--gold)}
+.rk{display:flex;align-items:center;gap:1.4rem;padding:1.1rem 1.4rem;border-radius:1.2rem;margin-bottom:.8rem;background:var(--card);border:.15rem solid var(--line)}
+.rk b{font-size:3.2rem;min-width:4rem;text-align:center}
+.rk.f{background:var(--gold);color:var(--ongold);border-color:var(--gold)}
+.rk.w{border-color:var(--ram-line);border-width:.25rem}
+.rk.sm{border-color:var(--spl);border-width:.25rem}
+.rk.sg{border-color:var(--spl);border-style:dashed}
+.rk.n{opacity:.85}
+.rcd{background:var(--card);border:.15rem solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;margin-bottom:1rem}
+.rcd summary{font-size:2.2rem;font-weight:600;cursor:pointer;color:var(--fg)}
+.rc{margin-top:1rem}
+.arb{font-size:3.6rem;line-height:2;text-align:right;color:var(--gold);font-family:"Noto Naskh Arabic","Noto Sans Arabic","Amiri",system-ui,sans-serif}
+.rc .tr{font-style:italic;color:var(--fg);margin:.6rem 0;font-size:1.8rem;line-height:1.5}
+.rc .en{color:var(--dim);font-size:1.8rem;line-height:1.5}
+.alt{margin-top:1.6rem;padding-top:1rem;border-top:.1rem dashed var(--line);color:var(--spl);font-weight:600;font-size:1.8rem}
