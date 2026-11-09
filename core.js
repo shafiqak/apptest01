@@ -142,13 +142,13 @@ function tick(){
 }
 // ---- weather (Open-Meteo, no key). Keeps last good reading if offline ----
 const WC={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Light drizzle',53:'Drizzle',55:'Drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',80:'Showers',81:'Showers',82:'Heavy showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'};
-function showWx(w){$('#wx .city').textContent=CFG.city+(matchMedia('(pointer:coarse)').matches?' · tap for settings':'');$('#wx .t').textContent=Math.round(w.t)+'°C';$('#wx .c').textContent=(WC[w.c]||'')+' · Humidity '+w.h+'%'}
+function showWx(w){$('#wx .city').textContent=CFG.city;$('#wx .t').textContent=Math.round(w.t)+'°C';$('#wx .c').textContent=(WC[w.c]||'')+' · Humidity '+w.h+'%'}
 async function weather(){
   try{
     const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+CFG.lat+'&longitude='+CFG.lon+'&current=temperature_2m,relative_humidity_2m,weather_code&timezone=auto');
     const j=(await r.json()).current,w={t:j.temperature_2m,h:j.relative_humidity_2m,c:j.weather_code};
     showWx(w);try{localStorage.setItem('wx',JSON.stringify(w))}catch(e){}
-  }catch(e){try{const w=JSON.parse(localStorage.getItem('wx'));if(w)showWx(w);else $('#wx .city').textContent=CFG.city+' · weather unavailable'}catch(_){}}
+  }catch(e){try{const w=JSON.parse(localStorage.getItem('wx'));if(w)showWx(w);else{$('#wx .city').textContent=CFG.city;$('#wx .c').textContent='Weather unavailable'}}catch(_){}}
 }
 // phone layout = touch device; add ?display to force the wide display layout (e.g. a touchscreen on the Pi)
 const PHONE=(matchMedia('(pointer:coarse)').matches||/[?&]app/.test(location.search))&&!/[?&]display/.test(location.search);
@@ -189,7 +189,7 @@ $('#go').onclick=search;$('#q').addEventListener('keydown',e=>{if(e.key==='Enter
 $('#gps').onclick=()=>{if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(
   p=>setLoc(p.coords.latitude,p.coords.longitude,'My location ('+p.coords.latitude.toFixed(2)+', '+p.coords.longitude.toFixed(2)+')'),
   ()=>{$('#cur').textContent='Could not get your location. Allow location access, or search for your city.'},{timeout:10000})};
-if(WEB&&!saved)setTimeout(openSettings,700);   // first launch: ask for city
+if(WEB&&!saved)setTimeout(()=>{if(PHONE)openSettings()},700);   // first launch: ask for city
 // keep the screen on when opened as .../index.html?awake (for a tablet used as a masjid display)
 if(/[?&]awake/.test(location.search)&&'wakeLock' in navigator){const lock=()=>navigator.wakeLock.request('screen').catch(()=>{});lock();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')lock()})}
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
