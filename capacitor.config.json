@@ -1,0 +1,15 @@
+{
+  "appId": "app.namaz.prayertimes",
+  "appName": "Namaz",
+  "webDir": "docs",
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_namaz",
+      "iconColor": "#E3C26A"
+    }
+  },
+  "backgroundColor": "#06140f"
+}

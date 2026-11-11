@@ -1,0 +1,18 @@
+{
+  "name": "namaz-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Prayer times, Hijri calendar, Qibla, tasbeeh, Salah guide, duas and Quran (Android app)",
+  "scripts": {
+    "sync": "cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/local-notifications": "^8.3.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.0"
+  }
+}

@@ -1,0 +1,186 @@
+@font-face{font-family:"Quran Font";src:url(fonts/scheherazade-new.woff2) format("woff2");font-display:swap}
+:root{--bg:#06140f;--card:#0d2a20;--line:#1f4d3b;--gold:#e3c26a;--fg:#f2efe4;--dim:#8fb5a3;--ongold:#12201a;--hol:#ff8a80;--hol-bg:rgba(255,138,128,.16);--spl:#6ec1e4;--cell:rgba(255,255,255,.03);--cell2:rgba(255,255,255,.08);--ram-bg:#0b3b1e;--ram-line:#2fbf6b;--ram-ar:#7dffb0;--ram-cell:rgba(61,220,132,.12);--ram-today:#3ddc84;--ram-on:#062a14;--moon-lit:#f3ecc8;--moon-dark:#24352e;--moon-line:#4d6b5e}
+:root[data-theme="light"]{--bg:#f5f0e1;--card:#fffcf2;--line:#d9d0b5;--gold:#8c6a12;--fg:#1d2b24;--dim:#5b6b60;--ongold:#fffdf5;--hol:#c0392b;--hol-bg:rgba(192,57,43,.10);--spl:#1f78a8;--cell:rgba(0,0,0,.05);--cell2:rgba(0,0,0,.08);--ram-bg:#e1f3e6;--ram-line:#2e9f5a;--ram-ar:#12703b;--ram-cell:rgba(46,159,90,.14);--ram-today:#2e9f5a;--ram-on:#ffffff;--moon-lit:#c9a23d;--moon-dark:#d4ccb0;--moon-line:#a79f85}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);overflow:hidden}
+body{display:flex;align-items:center;justify-content:center;color:var(--fg);font-family:"Noto Naskh Arabic","Noto Sans Arabic","DejaVu Sans",system-ui,sans-serif}
+#stage{width:54rem;height:96rem;background:var(--bg);padding:2.5rem;display:grid;grid-template-columns:29rem 1fr;gap:2rem}
+.col{display:flex;flex-direction:column;gap:2rem;min-height:0}
+.card{background:var(--card);border:.15rem solid var(--line);border-radius:1.6rem;padding:1.6rem}
+#clock{text-align:center;padding:1.4rem 1rem}
+#time{font-size:7.4rem;font-weight:700;line-height:1;letter-spacing:-.2rem;font-variant-numeric:tabular-nums}
+#trow{display:flex;justify-content:center;align-items:center;gap:.8rem}
+#sub{display:flex;flex-direction:column;align-items:flex-start;font-size:2.6rem;line-height:1.15;color:var(--dim);font-variant-numeric:tabular-nums}
+#moon{display:flex;justify-content:center;margin-top:.6rem;align-items:center;gap:.7rem;text-align:left;font-size:1.3rem;color:var(--dim);line-height:1.3}
+#moon svg{width:4.4rem;height:4.4rem;flex:none}
+#sub b{color:var(--gold);font-weight:600}
+#hdate{margin-top:1.2rem;font-size:3.4rem;color:var(--gold);line-height:1.3}
+#hdate small{display:block;font-size:2rem;color:var(--fg)}
+#gdate{font-size:1.9rem;color:var(--dim);margin-top:.4rem}
+#cal{flex:1;min-height:0;display:flex;flex-direction:column}
+#chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+#chead .mid{flex:1;text-align:center}
+.nav{display:none;font:inherit;font-size:3rem;line-height:1;background:var(--cell2);color:var(--gold);border:0;border-radius:1rem;width:4rem;height:4rem;cursor:pointer}
+@media (pointer:coarse){.nav{display:block}}
+.tod{color:var(--gold);text-decoration:underline;cursor:pointer}
+#chead .ar{font-size:2.8rem;color:var(--gold);line-height:1.2}
+#chead .en{font-size:1.5rem;color:var(--dim)}
+#grid{flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;align-content:center}
+.dn{text-align:center;font-size:1.1rem;color:var(--dim);padding-bottom:.4rem}
+.d{height:3.3rem;border-radius:.8rem;text-align:center;padding-top:.1rem;background:var(--cell)}
+.d .h{font-size:1.8rem;font-weight:600;line-height:1.15}
+.d .g{font-size:.95rem;color:var(--dim);line-height:1.1}
+.d.today{background:var(--gold);color:var(--ongold)}.d.today .g{color:var(--ongold)}
+.d.fri .h{color:var(--gold)}.d.today.fri .h{color:var(--ongold)}
+#wx{display:flex;flex-direction:column;justify-content:center;height:12rem;gap:.3rem}
+#wx .city{font-size:1.6rem;color:var(--dim)}
+#wx{cursor:pointer}
+#wx .t{font-size:5.2rem;font-weight:700;line-height:1}
+#wx .c{font-size:2rem}
+#pr{display:flex;flex-direction:column;gap:1.4rem}
+.p{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:1.2rem 1.3rem}
+.p .ar{font-size:3rem;line-height:1.2;color:var(--gold)}
+.p .en{font-size:1.4rem;color:var(--dim);letter-spacing:.1rem;margin-bottom:.7rem}
+.p .r{display:flex;justify-content:space-between;align-items:baseline;width:100%}
+.p .r span{font-size:1.2rem;color:var(--dim);letter-spacing:.1rem}
+.p .r b{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.p .r b{font-size:3.1rem}
+.p .az b{color:var(--fg)}
+.p .nm{margin-top:.2rem}.p .nm b{color:var(--gold)}
+.p .r b small{font-size:1.1rem;font-weight:500;margin-left:.25rem;color:var(--dim)}
+.p.done{opacity:.45}
+.p.next{background:var(--gold);border-color:var(--gold);color:var(--ongold)}
+.p.next .ar,.p.next .en,.p.next .r span,.p.next .r b,.p.next .r b small{color:var(--ongold)}
+#eid{display:none;margin-top:1rem;background:var(--gold);color:var(--ongold);border-radius:1rem;font-size:1.7rem;font-weight:700;padding:.5rem .6rem}
+#sheet{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;z-index:9;overflow:auto}
+#sheet.on{display:block}
+#box{width:54rem;max-width:100%;margin:0 auto;background:var(--card);min-height:100%;padding:2.5rem;font-size:2rem}
+#box h2{font-size:3rem;color:var(--gold);margin-bottom:1rem}
+#box label{display:block;margin:2.2rem 0 .6rem;color:var(--dim);font-size:1.7rem;line-height:1.35}
+#box small{display:block;color:var(--dim);font-size:1.5rem;margin-bottom:.3rem}
+#box input,#box select{width:100%;font:inherit;font-size:2.1rem;padding:1rem;border-radius:1rem;border:.15rem solid var(--line);background:var(--bg);color:var(--fg)}
+#box button{font:inherit;font-size:2rem;padding:1rem 1.6rem;border-radius:1rem;border:0;background:var(--gold);color:var(--ongold);font-weight:700;margin-top:1rem}
+#box .srow{display:flex;gap:1rem}#box .srow input{flex:1;width:auto}#box .srow button{margin-top:0}
+#box .g{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+#box #done{width:100%;margin-top:2.5rem}
+.hit{padding:1.1rem .4rem;border-bottom:.1rem solid var(--line);cursor:pointer}
+#cur{margin-top:1rem;color:var(--gold)}
+#cal{overflow:hidden}
+.d.hol{box-shadow:inset 0 0 0 .2rem var(--hol);background:var(--hol-bg)}.d.hol .h{color:var(--hol)}
+.d.spl{box-shadow:inset 0 0 0 .2rem var(--spl)}.d.spl .h{color:var(--spl)}
+.d.today.hol .h,.d.today.spl .h{color:var(--ongold)}
+#notes{margin-top:.8rem;font-size:1.35rem;line-height:1.3;color:var(--fg)}
+#notes .md{color:var(--dim);margin-bottom:.3rem}
+#notes .nt{display:flex;gap:.6rem;align-items:baseline}
+#notes b{min-width:3.6rem;font-weight:600}
+#notes i{width:.9rem;height:.9rem;border-radius:50%;flex:none;display:inline-block;background:var(--spl)}
+#notes i.h{background:var(--hol)}
+#cal.ramadan{background:var(--ram-bg);border-color:var(--ram-line)}
+#cal.ramadan #chead .ar{color:var(--ram-ar)}
+#cal.ramadan .d{background:var(--ram-cell)}
+#cal.ramadan .d.today{background:var(--ram-today);color:var(--ram-on)}#cal.ramadan .d.today .g{color:var(--ram-on)}
+#cal.ramadan .d.hol{background:var(--hol-bg)}
+/* phone layout: azan cards 20% narrower (14.4rem instead of 18rem) */
+.phone #stage{width:50.4rem}
+.phone .p{padding:.9rem .8rem}
+.phone .p .ar{font-size:2.8rem}
+.phone .p .r{flex-direction:column;align-items:center;gap:0}
+.phone .p .r b{font-size:2.8rem}
+
+/* ---------- phase 1: shell, views, nav, themes ---------- */
+#sun{margin-top:.5rem;font-size:1.5rem;color:var(--dim)}
+#wx{position:relative}
+#qshort{display:none;position:absolute;right:1.4rem;top:1.4rem;align-items:center;gap:.6rem;padding:.7rem 1rem;border-radius:99rem;background:var(--cell2);color:var(--gold);text-decoration:none;font-size:1.5rem;font-weight:600}
+.phone #qshort{display:flex}
+#qshort svg,.back svg{width:2.2rem;height:2.2rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hide{display:none!important}
+#nav{display:none;position:fixed;left:0;right:0;bottom:0;height:60px;background:var(--card);border-top:1px solid var(--line);z-index:5}
+.phone #nav{display:flex}
+.phone body{padding-bottom:60px;box-sizing:border-box}
+#nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--dim);text-decoration:none;font:600 11px system-ui,sans-serif}
+#nav a.on{color:var(--gold)}
+#nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.view{width:50.4rem;max-width:100%;overflow-y:auto;padding:2.5rem;background:var(--bg);color:var(--fg);font-size:2rem;box-sizing:border-box}
+.view h1{font-size:3.4rem;color:var(--gold);margin-bottom:1.2rem;font-weight:700}
+.view p{line-height:1.5;color:var(--dim);margin-bottom:1.2rem}
+.view .soon{background:var(--card);border:.15rem solid var(--line);border-radius:1.4rem;padding:1.6rem}
+.view .soon b{color:var(--fg)}
+.back{display:inline-flex;align-items:center;gap:.4rem;color:var(--gold);text-decoration:none;font-size:2rem;margin-bottom:1rem}
+.item{display:flex;align-items:center;justify-content:space-between;width:100%;padding:1.7rem 1.6rem;margin-bottom:1rem;background:var(--card);border:.15rem solid var(--line);border-radius:1.4rem;color:var(--fg);font:inherit;font-size:2.2rem;text-decoration:none;text-align:left;cursor:pointer}
+.item small{display:block;font-size:1.5rem;color:var(--dim)}
+.item span.c{color:var(--gold);font-size:2.6rem}
+.btn{font:inherit;font-size:2.1rem;padding:1.1rem 2rem;border-radius:1.2rem;border:0;background:var(--gold);color:var(--ongold);font-weight:700;cursor:pointer}
+.btn.ghost{background:var(--cell2);color:var(--fg)}
+#qdial{display:block;width:36rem;max-width:100%;margin:1.5rem auto}
+#qring{fill:none;stroke:var(--line);stroke-width:2}
+#dial .tk{stroke:var(--dim);stroke-width:1}
+#dial text{fill:var(--fg);font:700 12px system-ui,sans-serif;text-anchor:middle}
+#dial text.n{fill:var(--hol)}
+#qptr{fill:var(--gold)}
+#v-qibla.ok #qptr{fill:#2fbf6b}
+#v-qibla.ok #qinfo b{color:#2fbf6b}
+#qinfo{text-align:center;font-size:2.4rem;line-height:1.4}
+#qinfo b{color:var(--gold);font-size:3.2rem}
+#qinfo small{color:var(--dim);font-size:1.6rem}
+#qstat{text-align:center;color:var(--dim);margin:1rem 0;font-size:1.7rem}
+.chips{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem}
+.chip{padding:.7rem 1.3rem;border-radius:99rem;border:.15rem solid var(--line);background:var(--card);color:var(--fg);font:inherit;font-size:1.7rem;cursor:pointer}
+.chip.on{background:var(--gold);color:var(--ongold);border-color:var(--gold)}
+#tar{font-size:5rem;text-align:center;color:var(--gold);line-height:1.5;margin-top:1rem;font-family:"Quran Font","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif}
+#ten{text-align:center;color:var(--dim);font-size:1.8rem}
+#tbtn{display:block;margin:1.5rem auto;width:30rem;height:30rem;max-width:100%;border:0;border-radius:50%;background:var(--card);padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+#tbtn svg{width:100%;height:100%}
+#tbtn .rb{fill:none;stroke:var(--line);stroke-width:8}
+#tbtn .rp{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .15s}
+#tbtn text{text-anchor:middle;fill:var(--fg)}
+#tbtn .cnt{font:700 54px system-ui,sans-serif}
+#tbtn .of{font:500 13px system-ui,sans-serif;fill:var(--dim)}
+#tmeta{text-align:center;color:var(--dim);font-size:1.7rem;margin:.5rem 0 1.2rem}
+#tact{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+
+/* ---------- phase 2: Learn Salah ---------- */
+.sbanner{background:var(--hol-bg);border:.15rem solid var(--hol);color:var(--fg);border-radius:1.2rem;padding:1rem 1.4rem;font-size:1.7rem;margin-bottom:1.4rem}
+.view h2{font-size:2.4rem;color:var(--gold);margin:1.8rem 0 .6rem}
+.view ul,.view ol{padding-left:3rem;line-height:1.5;margin-bottom:1rem}
+.view li{margin-bottom:.8rem}
+.view .src{font-size:1.45rem;color:var(--dim);line-height:1.4;margin-top:.6rem}
+.steps li{margin-bottom:1.4rem}.steps b{color:var(--gold)}
+.rk{display:flex;align-items:center;gap:1.4rem;padding:1.1rem 1.4rem;border-radius:1.2rem;margin-bottom:.8rem;background:var(--card);border:.15rem solid var(--line)}
+.rk b{font-size:3.2rem;min-width:4rem;text-align:center}
+.rk.f{background:var(--gold);color:var(--ongold);border-color:var(--gold)}
+.rk.w{border-color:var(--ram-line);border-width:.25rem}
+.rk.sm{border-color:var(--spl);border-width:.25rem}
+.rk.sg{border-color:var(--spl);border-style:dashed}
+.rk.n{opacity:.85}
+.rcd{background:var(--card);border:.15rem solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;margin-bottom:1rem}
+.rcd summary{font-size:2.2rem;font-weight:600;cursor:pointer;color:var(--fg)}
+.rc{margin-top:1rem}
+.arb{font-size:3.6rem;line-height:2;text-align:right;color:var(--gold);font-family:"Quran Font","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif}
+.rc .tr{font-style:italic;color:var(--fg);margin:.6rem 0;font-size:1.8rem;line-height:1.5}
+.rc .en{color:var(--dim);font-size:1.8rem;line-height:1.5}
+.alt{margin-top:1.6rem;padding-top:1rem;border-top:.1rem dashed var(--line);color:var(--spl);font-weight:600;font-size:1.8rem}
+
+/* ---------- phase 3: Quran reader and duas ---------- */
+.arn{font-family:"Quran Font","Noto Naskh Arabic","Noto Sans Arabic",system-ui,sans-serif;color:var(--gold);font-size:2.6rem;font-weight:400}
+.view h1 .arn{font-size:3rem;margin-left:1rem}
+#qsearch,#dq{width:100%;font:inherit;font-size:2.1rem;padding:1rem 1.2rem;border-radius:1rem;border:.15rem solid var(--line);background:var(--card);color:var(--fg);margin:1.2rem 0}
+.ay{background:var(--card);border:.15rem solid var(--line);border-radius:1.4rem;padding:1.2rem 1.4rem;margin-bottom:1rem}
+.ay.mark{border-color:var(--gold)}
+.ay .num{display:inline-block;min-width:3.2rem;height:3.2rem;border-radius:50%;background:var(--cell2);color:var(--gold);text-align:center;line-height:3.2rem;font-size:1.5rem}
+.ay .tr{font-style:italic;margin:.6rem 0;font-size:1.8rem;line-height:1.5}
+.ay .en{color:var(--dim);font-size:1.8rem;line-height:1.5}
+.bsm{text-align:center!important;margin:1rem 0 1.4rem}
+.qnav{display:flex;justify-content:space-between;margin:1.6rem 0}
+.qnav a{text-decoration:none}
+a.chip{text-decoration:none}
+.src a{color:var(--gold)}
+
+/* ---------- phase 5: Quran extras ---------- */
+.ayh{display:flex;justify-content:space-between;align-items:center}
+.bm{background:none;border:0;color:var(--gold);font-size:3rem;line-height:1;cursor:pointer;padding:0 .4rem}
+.ay .ur{font-family:"Quran Font","Noto Naskh Arabic",system-ui,sans-serif;font-size:2.6rem;line-height:2;text-align:right;color:var(--fg);margin-top:.6rem}
+.vcard{display:block}.vcard small{display:block;color:var(--gold);margin-bottom:.4rem}
+.vcard .en{color:var(--dim);font-size:1.7rem;line-height:1.5;margin-top:.4rem}
+#qfind{width:100%;font:inherit;font-size:2.1rem;padding:1rem 1.2rem;border-radius:1rem;border:.15rem solid var(--line);background:var(--card);color:var(--fg);margin:1rem 0}
+
+#nf_exact{margin:.8rem 0}

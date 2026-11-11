@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#06140f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Prayer Times</title>
+<script>try{var c=JSON.parse(localStorage.getItem('cfg')||'null'),t=(c&&c.theme)||'dark';if(t==='auto')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='dark'}</script>
+<link rel="stylesheet" href="app.css">
+</head><body>
+
+<div id="stage">
+ <div class="col">
+  <div class="card" id="clock">
+   <div id="trow"><div id="time">--:--</div><div id="sub"></div></div>
+   <div id="moon"></div>
+   <div id="sun"></div>
+   <div id="hdate"></div>
+   <div id="eid"></div>
+   <div id="gdate"></div>
+  </div>
+  <div class="card" id="cal"><div id="chead"></div><div id="grid"></div><div id="notes"></div></div>
+  <div class="card" id="wx"><div class="city"></div><div class="t">--</div><div class="c"></div><a id="qshort" href="#qibla"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polygon points="15.5,8.5 13.5,13.5 8.5,15.5 10.5,10.5"/></svg><span></span></a></div>
+ </div>
+ <div class="col" id="pr"></div>
+</div>
+
+<section id="v-salah" class="view hide"><div id="sbody"></div></section>
+<section id="v-duas" class="view hide"><div id="dbody"></div></section>
+<section id="v-occ" class="view hide"><h1>Occasions</h1>
+ <div class="soon"><b>Coming next:</b> a Ramadan companion, then Hajj and Umrah guides, and the Eid and special-day guides. The Hijri calendar with special days is on the Home screen.</div></section>
+<section id="v-more" class="view hide"><h1>More</h1>
+ <a class="item" href="#qibla"><div>Qibla compass<small>Direction of the Kaaba from where you are</small></div><span class="c">›</span></a>
+ <a class="item" href="#tasbeeh"><div>Tasbeeh counter<small>Count your dhikr</small></div><span class="c">›</span></a>
+ <button class="item" id="mset"><div>Settings<small>City, madhhab, theme, namaz times</small></div><span class="c">›</span></button></section>
+<section id="v-qibla" class="view hide"><a class="back" href="#more"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>More</a><h1>Qibla</h1>
+ <svg id="qdial" viewBox="0 0 200 200"><g id="dial"></g><polygon id="qptr" points="100,2 93,17 107,17"/></svg>
+ <div id="qinfo"></div><div id="qstat">Tap “Enable compass”, then hold your phone flat.</div>
+ <div style="text-align:center"><button class="btn" id="qgo">Enable compass</button></div></section>
+<section id="v-tasbeeh" class="view hide"><a class="back" href="#more"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>More</a><h1>Tasbeeh</h1><div id="tbody"></div></section>
+<nav id="nav"><a href="#home" data-go="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></svg>Home</a><a href="#salah" data-go="salah"><svg viewBox="0 0 24 24"><path d="M5 21V10a7 7 0 0 1 14 0v11z"/><path d="M9 21v-7a3 3 0 0 1 6 0v7"/></svg>Salah</a><a href="#duas" data-go="duas"><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3zM13 5h8v14h-8z"/></svg>Duas</a><a href="#occ" data-go="occ"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Occasions</a><a href="#more" data-go="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</a></nav>
+<div id="sheet"><div id="box">
+ <h2>Settings</h2>
+ <label>City (search any state or country)</label>
+ <div class="srow"><input id="q" placeholder="e.g. Hyderabad" autocomplete="off"><button id="go">Search</button></div>
+ <div id="res"></div>
+ <button id="gps">Use my GPS location</button>
+ <div id="cur"></div>
+ <label>Madhhab (Asr time and prayer guides)</label>
+ <select id="mad"><option value="hanafi">Hanafi</option><option value="shafii">Shafi’i</option><option value="maliki">Maliki (guides coming later)</option><option value="hanbali">Hanbali (guides coming later)</option></select>
+ <label>Theme</label>
+ <select id="thm"><option value="dark">Dark emerald</option><option value="light">Light ivory</option><option value="auto">Match my phone</option></select>
+ <label>Hijri date adjustment (local moon sighting)</label>
+ <select id="adj"><option value="-2">−2 days</option><option value="-1">−1 day</option><option value="0">No change</option><option value="1">+1 day</option><option value="2">+2 days</option></select>
+ <label>Your masjid’s namaz times (optional). Type +15 for minutes after azan, or a 24-hour time such as 13:00. Leave blank to hide.</label>
+ <div class="g">
+  <div><small>Fajr</small><input id="n_fajr"></div><div><small>Dhuhr</small><input id="n_dhuhr"></div>
+  <div><small>Asr</small><input id="n_asr"></div><div><small>Maghrib</small><input id="n_maghrib"></div>
+  <div><small>Isha</small><input id="n_isha"></div><div><small>Jumu’ah (Friday)</small><input id="n_j"></div>
+  <div><small>Eid namaz</small><input id="n_e"></div>
+ </div>
+<div id="nsec" style="display:none">
+ <label>Notifications</label>
+ <select id="nf_on"><option value="0">Off</option><option value="1">On</option></select>
+ <label>Reminder before azan</label>
+ <select id="nf_before"><option value="0">None</option><option value="5">5 minutes before</option><option value="10">10 minutes before</option><option value="15">15 minutes before</option><option value="20">20 minutes before</option><option value="30">30 minutes before</option></select>
+ <label>At azan time</label>
+ <select id="nf_azan"><option value="1">On</option><option value="0">Off</option></select>
+ <label>At namaz (jamaat) time, for prayers where you entered a time above</label>
+ <select id="nf_namaz"><option value="1">On</option><option value="0">Off</option></select>
+ <label>Friday reminder</label>
+ <select id="nf_friday"><option value="1">On</option><option value="0">Off</option></select>
+ <label>Morning and evening azkar</label>
+ <select id="nf_azkar"><option value="0">Off</option><option value="1">On</option></select>
+ <label>Verse of the day (8:00 AM)</label>
+ <select id="nf_daily"><option value="0">Off</option><option value="1">On</option></select>
+ <label>Sound</label>
+ <select id="nf_sound"><option value="default">Notification sound</option><option value="vibrate">Vibrate only</option><option value="silent">Silent</option></select>
+ <div id="nf_exact" class="src"></div>
+ <button class="btn ghost" id="nf_btn" style="display:none">Allow exact alarms</button>
+</div>
+ <button id="done">Save</button>
+</div></div>
+<script src="core.js"></script>
+<script src="qibla.js"></script>
+<script src="tasbeeh.js"></script>
+<script src="salah.js"></script>
+<script src="quran.js"></script>
+<script src="duas.js"></script>
+<script src="notify.js"></script>
+<script src="shell.js"></script>
+</body></html>

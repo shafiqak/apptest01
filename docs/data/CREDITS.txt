@@ -1,0 +1,11 @@
+Quran data used in this app
+- Arabic (Uthmani) text: The Noble Qur'an Encyclopedia, https://quranenc.com
+- English transliteration and the English translation (Saheeh International, by Umm Muhammad): Tanzil, https://tanzil.net
+- Compiled as JSON by quran-json (Risan Bagja Pradana), https://github.com/risan/quran-json, licensed CC BY-SA 4.0.
+  The files in this folder are a reformatting of that data (the text itself is unchanged) and are shared under the same licence, CC BY-SA 4.0.
+- Tanzil terms: the text may be used with the source clearly indicated and a link to https://tanzil.net, and must not be changed.
+- Urdu translation (optional, loaded when chosen): Abul A'la Maududi, from Tanzil, https://tanzil.net/trans/ur.maududi
+- Quran font: Scheherazade New, SIL Open Font License 1.1 (see fonts/OFL-Scheherazade-New.txt)
+- Urdu translation (optional, downloaded only when you turn it on): Abul A'la Maududi, from Tanzil, https://tanzil.net
+- Quran font: Scheherazade New by SIL International, SIL Open Font License 1.1 (see fonts/OFL-Scheherazade-New.txt)
+- Juz boundaries checked against the quran-meta package (Hafs).
