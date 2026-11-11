@@ -13,27 +13,43 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
-      - uses: actions/setup-java@v4
+
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
-      - uses: android-actions/setup-android@v3
+
+      # The runner already has the Android SDK. Accept its licences and add the platform Capacitor 8 needs.
+      - name: Prepare the Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          SDKM="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          ls "$ANDROID_HOME/cmdline-tools" || true
+          yes | "$SDKM" --licenses > /dev/null || true
+          "$SDKM" "platforms;android-36" || true
+          "$SDKM" --list_installed || true
+
       - name: Install dependencies
         run: npm ci
+
       - name: Copy the web app into the Android project
         run: npx cap sync android
+
       - name: Build the debug APK
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
       - uses: actions/upload-artifact@v4
         with:
           name: namaz-debug-apk
