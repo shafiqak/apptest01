@@ -2,7 +2,7 @@
 const CFG={city:'Bengaluru',lat:12.9716,lon:77.5946,
   madhhab:'shafii',   // hanafi | shafii | maliki | hanbali (Asr shadow: Hanafi x2, others x1)
   theme:'dark',       // dark | light | auto
-  notify:{on:0,before:10,azan:1,namaz:1,friday:1,azkar:0,daily:0,sound:'default'},   // Android app only
+  notify:{on:0,before:10,azan:1,namaz:1,friday:1,azkar:0,daily:0,ramadan:0,sound:'default'},   // Android app only
   asrFactor:1,        // 1 = Shafi/Maliki/Hanbali, 2 = Hanafi
   hijriAdjust:0,      // moon-sighting correction in days (-2..+2)
   offsets:{fajr:0,dhuhr:0,asr:0,maghrib:0,isha:0},
@@ -167,7 +167,7 @@ function openSettings(){
   $('#sheet').classList.add('on');$('#q').value='';$('#res').innerHTML='';$('#cur').textContent='Current: '+CFG.city;
   $('#mad').value=CFG.madhhab;$('#thm').value=CFG.theme||'dark';
   $('#nsec').style.display=NATIVE?'block':'none';
-  if(NATIVE){const N=CFG.notify||{};['on','before','azan','namaz','friday','azkar','daily'].forEach(k=>$('#nf_'+k).value=String(N[k]??0));$('#nf_sound').value=N.sound||'default';if(typeof updateExactStatus==='function')updateExactStatus()}$('#adj').value=CFG.hijriAdjust;
+  if(NATIVE){const N=CFG.notify||{};['on','before','azan','namaz','friday','azkar','daily','ramadan'].forEach(k=>$('#nf_'+k).value=String(N[k]??0));$('#nf_sound').value=N.sound||'default';if(typeof updateExactStatus==='function')updateExactStatus()}$('#adj').value=CFG.hijriAdjust;
   FLD.forEach(k=>$('#n_'+k).value=toTxt(CFG.namaz[k]));$('#n_j').value=CFG.jumuah||'';$('#n_e').value=CFG.eid||'';
   if(typeof fillNotif==='function')fillNotif();
 }
@@ -183,12 +183,12 @@ async function search(){
   }catch(e){$('#res').textContent='Search needs an internet connection.'}
 }
 function closeSettings(){
-  if(NATIVE)CFG.notify={on:+$('#nf_on').value,before:+$('#nf_before').value,azan:+$('#nf_azan').value,namaz:+$('#nf_namaz').value,friday:+$('#nf_friday').value,azkar:+$('#nf_azkar').value,daily:+$('#nf_daily').value,sound:$('#nf_sound').value};
+  if(NATIVE)CFG.notify={on:+$('#nf_on').value,before:+$('#nf_before').value,azan:+$('#nf_azan').value,namaz:+$('#nf_namaz').value,friday:+$('#nf_friday').value,azkar:+$('#nf_azkar').value,daily:+$('#nf_daily').value,ramadan:+$('#nf_ramadan').value,sound:$('#nf_sound').value};
   CFG.madhhab=$('#mad').value;CFG.asrFactor=CFG.madhhab==='hanafi'?2:1;CFG.theme=$('#thm').value;applyTheme();CFG.hijriAdjust=+$('#adj').value;
   const nz={};FLD.forEach(k=>{const c=parseNz($('#n_'+k).value);if(c)nz[k]=c});CFG.namaz=nz;
   const j=parseNz($('#n_j').value),e=parseNz($('#n_e').value);CFG.jumuah=j&&j.at||'';CFG.eid=e&&e.at||'';
   if(typeof readNotif==='function')readNotif();
-  try{localStorage.setItem('cfg',JSON.stringify({lat:CFG.lat,lon:CFG.lon,city:CFG.city,asrFactor:CFG.asrFactor,madhhab:CFG.madhhab,theme:CFG.theme,notify:CFG.notify,notif:CFG.notif,hijriAdjust:CFG.hijriAdjust,namaz:CFG.namaz,jumuah:CFG.jumuah,eid:CFG.eid}))}catch(x){}
+  try{localStorage.setItem('cfg',JSON.stringify({lat:CFG.lat,lon:CFG.lon,city:CFG.city,asrFactor:CFG.asrFactor,madhhab:CFG.madhhab,theme:CFG.theme,notify:CFG.notify,hijriAdjust:CFG.hijriAdjust,namaz:CFG.namaz,jumuah:CFG.jumuah,eid:CFG.eid}))}catch(x){}
   $('#sheet').classList.remove('on');lastDay='';lastMin='';tick();weather();if(typeof refreshShell==='function')refreshShell();
   if(NATIVE&&typeof applyNotifySettings==='function')applyNotifySettings();
 }
