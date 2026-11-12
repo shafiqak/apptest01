@@ -1,6 +1,6 @@
 // Offline support: the app files are cached and refreshed in the background on each visit.
-const V = 'namaz-v9';
-const FILES = ['./', 'index.html', 'app.css', 'core.js', 'qibla.js', 'tasbeeh.js', 'salah.js', 'quran.js', 'duas.js', 'notify.js', 'fonts/scheherazade-new.woff2', 'data/surahs.json', 'data/ar.json', 'data/en.json', 'data/tr.json', 'shell.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'icon-180.png'];
+const V = 'namaz-v10';
+const FILES = ['./', 'index.html', 'app.css', 'core.js', 'qibla.js', 'tasbeeh.js', 'salah.js', 'quran.js', 'duas.js', 'notify.js', 'ramadan.js', 'fonts/scheherazade-new.woff2', 'data/surahs.json', 'data/ar.json', 'data/en.json', 'data/tr.json', 'shell.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'icon-180.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(V).then(c => c.addAll(FILES))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== V).map(k => caches.delete(k)))));

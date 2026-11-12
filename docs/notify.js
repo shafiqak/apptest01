@@ -44,6 +44,7 @@ async function scheduleNotifications(){
       });
       if(N.friday&&fri)add(new Date(day.getFullYear(),day.getMonth(),day.getDate(),9,0),'Jumu’ah today',`Dhuhr azan at ${fmt(az.dhuhr).join(' ')}`+(CFG.jumuah?` · Jumu’ah at ${fmt(clockAt(day,CFG.jumuah)).join(' ')}`:''));
       if(N.azkar){add(new Date(az.sunrise.getTime()+15*6e4),'Morning azkar','Time for the morning remembrance');add(new Date(az.asr.getTime()+30*6e4),'Evening azkar','Time for the evening remembrance')}
+      if(N.ramadan&&hparts(day).m===9){add(new Date(az.fajr.getTime()-30*6e4),'Sehri ends in 30 minutes',`Fajr azan at ${fmt(az.fajr).join(' ')}`);add(az.maghrib,'Iftar time',`Maghrib azan at ${fmt(az.maghrib).join(' ')} · ${CFG.city}`)}
       if(daily&&d<3)add(new Date(day.getFullYear(),day.getMonth(),day.getDate(),8,0),daily[0],daily[1]);
     }
     out.sort((x,y)=>x.at-y.at);

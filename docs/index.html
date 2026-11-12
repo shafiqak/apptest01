@@ -31,8 +31,7 @@
 
 <section id="v-salah" class="view hide"><div id="sbody"></div></section>
 <section id="v-duas" class="view hide"><div id="dbody"></div></section>
-<section id="v-occ" class="view hide"><h1>Occasions</h1>
- <div class="soon"><b>Coming next:</b> a Ramadan companion, then Hajj and Umrah guides, and the Eid and special-day guides. The Hijri calendar with special days is on the Home screen.</div></section>
+<section id="v-occ" class="view hide"><div id="obody"></div></section>
 <section id="v-more" class="view hide"><h1>More</h1>
  <a class="item" href="#qibla"><div>Qibla compass<small>Direction of the Kaaba from where you are</small></div><span class="c">›</span></a>
  <a class="item" href="#tasbeeh"><div>Tasbeeh counter<small>Count your dhikr</small></div><span class="c">›</span></a>
@@ -76,6 +75,8 @@
  <select id="nf_friday"><option value="1">On</option><option value="0">Off</option></select>
  <label>Morning and evening azkar</label>
  <select id="nf_azkar"><option value="0">Off</option><option value="1">On</option></select>
+ <label>Ramadan: Sehri and Iftar reminders</label>
+ <select id="nf_ramadan"><option value="0">Off</option><option value="1">On</option></select>
  <label>Verse of the day (8:00 AM)</label>
  <select id="nf_daily"><option value="0">Off</option><option value="1">On</option></select>
  <label>Sound</label>
@@ -91,6 +92,7 @@
 <script src="salah.js"></script>
 <script src="quran.js"></script>
 <script src="duas.js"></script>
+<script src="ramadan.js"></script>
 <script src="notify.js"></script>
 <script src="shell.js"></script>
 </body></html>

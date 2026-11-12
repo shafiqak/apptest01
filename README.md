@@ -1,31 +1,39 @@
-# Namaz: prayer times, Hijri calendar, Qibla, Salah guide, duas and Quran
+# Namaz: prayer times, Hijri calendar, Qibla, Salah guide, duas, Quran
 
-One web app (`docs/`) used three ways:
+One codebase, three ways to use it:
 
-1. **Website / installable PWA**: GitHub Pages, source folder `/docs`.
-2. **Display on a Raspberry Pi**: open `docs/index.html` in kiosk mode (add `?display` for the wide layout on a touch screen).
-3. **Android app**: the same files wrapped with Capacitor; this adds real notifications (azan, namaz, Friday, azkar, verse of the day).
+| What | Where | How it updates |
+|---|---|---|
+| Website / installable web app (PWA) | `docs/` served by GitHub Pages | push to `main` |
+| Masjid display (Raspberry Pi) | opens `docs/index.html` in kiosk mode | `git pull`, the page reloads itself at 03:05 |
+| Android app with notifications | `android/` (built from `docs/`) | rebuild the APK in GitHub Actions |
 
-## Build the Android APK (no Android Studio needed)
-1. Put everything in this folder in a GitHub repository, **including the hidden `.github` folder**.
-2. Open the repository, go to **Actions**, choose **Build Android APK**, then **Run workflow**.
-3. When it finishes, open the run and download **namaz-debug-apk** (a zip containing `app-debug.apk`).
-4. Copy the APK to the phone, open it, and allow "Install unknown apps" for your file manager or browser.
+## 1. Put it on GitHub
+1. Create a repository and upload everything in this folder (keep the folder structure).
+2. **Settings → Pages**: Source = *Deploy from a branch*, branch `main`, folder **/docs**. The web app is then at `https://<you>.github.io/<repo>/`.
 
-If the build fails, open the failed step and copy the error text; the usual causes are small version mismatches.
+## 2. Build the Android app (no Android Studio needed)
+1. Open the **Actions** tab, choose **Build Android app**, press **Run workflow** (it also runs on every push).
+2. When it finishes, open the run and download the artifact **namaz-debug-apk**. Unzip it and send `app-debug.apk` to your phone.
+3. Install it (allow "install unknown apps" for your file manager or browser).
+4. Open the app → **More → Settings → Notifications**. Turn them on and allow:
+   - Notifications (Android asks once)
+   - **Alarms & reminders / exact alarms** (the "Allow exact alarms" button opens that screen). Without it, alerts can be a few minutes late.
+   - On some phones (Xiaomi, Oppo, Vivo, Samsung) also set the app's battery use to **Unrestricted**, or they may delay alerts.
 
-## Before you publish
-- **App ID:** `app.namaz.prayertimes` in `capacitor.config.json` is a placeholder. Change it to one you own (reverse domain, for example `com.yourname.namaz`) **before** the first release, then run `npx cap sync android` (the CI does this). The app ID cannot be changed after publishing to Google Play.
-- **Play Store:** needs a signed release bundle (AAB), a developer account, a privacy policy and the Data safety form. The app uses location only on the phone and sends the city or coordinates to Open-Meteo for weather and city search.
-- **Azan sound:** none is included. Add a licensed audio file as `android/app/src/main/res/raw/azan.mp3` and tell me, and I will add an "Azan" sound option.
+**Before you publish anywhere:** change `appId` in `capacitor.config.json` to an id you own (for example `com.yourname.namaz`). It cannot be changed after the app is on Google Play.
 
-## Notifications: how they work and their limits
-- The app schedules about the next 10 to 14 days of alerts on the phone and refreshes them each time it is opened. If it is not opened for two weeks, alerts stop until it is opened again.
-- Android 12 and later needs "Alarms & reminders" permission for exact timing. The app shows a button for it in Settings. Without it, alerts can be a few minutes late.
-- Some phones (Xiaomi, Oppo, Vivo, Samsung and others) stop apps in the background. Turn off battery optimisation for the app if alerts are missed.
+## 3. How notifications work
+The app schedules the next two weeks of alerts on the phone itself (no server, works offline) and refreshes them each time you open the app, change a setting, or change city. If you do not open the app for two weeks, alerts stop until you do.
+
+Choices: before azan (5 to 30 min), at azan, at namaz (jamaat) time, Friday reminder, morning and evening azkar, verse of the day, Ramadan reminders (Sehri and Iftar), and sound mode (sound, vibrate, silent).
+The azan audio itself is not included: add a licensed audio file later (see "Azan sound" below).
+
+## Azan sound (later)
+Put the audio file at `android/app/src/main/res/raw/azan.mp3` and tell me; the channel needs a one-line change.
 
 ## Content status
-Salah, dua and Quran-guide content is marked as a draft pending review by a scholar. Quran data credits are in `docs/data/CREDITS.txt`.
+Salah, duas and Ramadan guides are drafts pending review by your imam. Quran data credits are in `docs/data/CREDITS.txt`.
 
-## Updating
-Edit files in `docs/`, push to GitHub. Pages updates the website; run the Android workflow to get a new APK. A Raspberry Pi can `git pull` and reload.
+## Tested vs not tested
+The web app and the notification scheduling logic were tested in a headless browser (with a stand-in for the Android plugin). The Android build itself and real-device behaviour (exact alarms, battery restrictions, compass, GPS) have **not** been tested yet. If the first GitHub Actions run fails, send the error log.
